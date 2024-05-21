@@ -54,4 +54,25 @@ class ItemController extends Controller
 
         return view('item.add');
     }
+
+     /**
+     * 商品詳細
+     */
+    public function show($id)
+    {
+        $item = Item::findOrFail($id);
+
+        return view('item.show', compact('item'));
+    }
+
+    /**
+     * 商品削除
+     */
+    public function destroy($id)
+    {
+        $item = Item::findOrFail($id);
+        $item->delete();
+
+        return redirect('/items');
+    }
 }

@@ -28,6 +28,7 @@
                                 <th>名前</th>
                                 <th>種別</th>
                                 <th>詳細</th>
+                                <th>操作</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,6 +38,14 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->type }}</td>
                                     <td>{{ $item->detail }}</td>
+                                    <td>
+                                        <a href="{{ url('items/' . $item->id) }}" class="btn btn-outline-info">詳細</a>
+                                        <form action="{{ url('items/' . $item->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('本当に削除しますか？');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-outline-danger">削除</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -48,7 +57,9 @@
 @stop
 
 @section('css')
+    <!-- Optional: Add custom CSS here -->
 @stop
 
 @section('js')
+    <!-- Optional: Add custom JS here -->
 @stop
