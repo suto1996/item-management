@@ -19,12 +19,32 @@ class ItemController extends Controller
     }
 
     /**
-     * 商品一覧
+     * 商品一覧と検索機能
      */
-    public function index()
+    public function index(Request $request)
     {
-        // 商品一覧取得
-        $items = Item::all();
+        $items = Item::query();
+
+        // 商品名での検索
+        if ($request->has('name') && $request->input('name') != '') {
+            $items->where('name', 'like', '%' . $request->input('name') . '%');
+        }
+
+        // 種別での検索
+        if ($request->has('type') && $request->input('type') != '') {
+            $items->where('type', 'like', '%' . $request->input('type') . '%');
+        }
+
+        // 価格での検索
+        if ($request->has('min_price') && $request->input('min_price') != '') {
+            $items->where('price', '>=', $request->input('min_price'));
+        }
+        if ($request->has('max_price') && $request->input('max_price') != '') {
+            $items->where('price', '<=', $request->input('max_price'));
+        }
+
+        // 検索結果を取得
+        $items = $items->get();
 
         return view('item.index', compact('items'));
     }
@@ -39,6 +59,8 @@ class ItemController extends Controller
             // バリデーション
             $this->validate($request, [
                 'name' => 'required|max:100',
+                'type' => 'required|max:100',  // 追加のバリデーション
+                'price' => 'required',  // 追加のバリデーション
             ]);
 
             // 商品登録
@@ -46,7 +68,7 @@ class ItemController extends Controller
                 'user_id' => Auth::user()->id,
                 'name' => $request->name,
                 'type' => $request->type,
-                'detail' => $request->detail,
+                'price' => $request->price,
             ]);
 
             return redirect('/items');
@@ -55,7 +77,7 @@ class ItemController extends Controller
         return view('item.add');
     }
 
-     /**
+    /**
      * 商品詳細
      */
     public function show($id)

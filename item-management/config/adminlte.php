@@ -302,11 +302,7 @@ return [
             'icon' => 'fas  fa-check-square',
         ],
 
-        [
-            'text' => '検索一覧',
-            'url'  => 'items',
-            'icon' => 'fas  fa-search',
-        ],
+       
 
         
     

@@ -15,9 +15,9 @@
                 </div>
                 <div class="card-body">
                     <p>ID: {{ $item->id }}</p>
-                    <p>名前: {{ $item->name }}</p>
+                    <p>商品名: {{ $item->name }}</p>
                     <p>種別: {{ $item->type }}</p>
-                    <p>詳細: {{ $item->detail }}</p>
+                    <p>価格: {{ $item->detail }}</p>
                     <a href="{{ url('items') }}" class="btn btn-outline-dark">戻る</a>
                 </div>
             </div>

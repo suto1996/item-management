@@ -8,58 +8,100 @@
 
 @section('content')
     <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">商品一覧</h3>
-                    <div class="card-tools">
-                        <div class="input-group input-group-sm">
-                            <div class="input-group-append">
-                                <a href="{{ url('items/add') }}" class="btn btn-default">商品登録</a>
-                            </div>
-                        </div>
+        <div class="col-md-10">
+            <form id="searchForm" action="{{ route('items.index') }}" method="GET">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="商品名を入力してください" name="name" id="name" value="{{ request('name') }}">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="種別を入力してください" name="type" id="type" value="{{ request('type') }}">
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <input type="number" class="form-control" placeholder="最低価格" name="min_price" min="0" id="min_price" value="{{ request('min_price') }}">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="number" class="form-control" placeholder="最高価格" name="max_price" min="0" id="max_price" value="{{ request('max_price') }}">
                     </div>
                 </div>
-                <div class="card-body table-responsive p-0">
-                    <table class="table table-hover text-nowrap">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>名前</th>
-                                <th>種別</th>
-                                <th>詳細</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($items as $item)
-                                <tr>
-                                    <td>{{ $item->id }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->type }}</td>
-                                    <td>{{ $item->detail }}</td>
-                                    <td>
-                                        <a href="{{ url('items/' . $item->id) }}" class="btn btn-outline-info">詳細</a>
-                                        <form action="{{ url('items/' . $item->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('本当に削除しますか？');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-outline-danger">削除</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                <div class="input-group mb-3">
+                    <button class="btn btn-outline-secondary" type="submit">検索</button>
                 </div>
-            </div>
+                <div id="error-message" class="text-danger" style="display:none;">
+                    少なくとも1つのフィールドに入力してください。
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            @if($items->isEmpty())
+                <p>該当する商品が見つかりませんでした。</p>
+            @else
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>商品名</th>
+                            <th>種別</th>
+                            <th>価格</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($items as $item)
+                            <tr>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->type }}</td>
+                                <td>{{ $item->detail }}</td>
+                                <td>{{ $item->price }}</td>
+                                <td class="text-right">
+                                    <a href="{{ route('items.show', $item->id) }}" class="btn btn-outline-info btn-sm">詳細</a>
+                                    <form action="{{ route('items.destroy', $item->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('本当に削除しますか？')">削除</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
         </div>
     </div>
 @stop
 
 @section('css')
-    <!-- Optional: Add custom CSS here -->
+    <style>
+        #error-message {
+            margin-top: 10px;
+        }
+    </style>
 @stop
 
 @section('js')
-    <!-- Optional: Add custom JS here -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('searchForm');
+            const errorMessage = document.getElementById('error-message');
+            const inputs = form.querySelectorAll('input');
+
+            form.addEventListener('submit', function(event) {
+                if (Array.from(inputs).every(input => input.value.trim() === '')) {
+                    event.preventDefault();
+                    errorMessage.style.display = 'block';
+                } else {
+                    errorMessage.style.display = 'none';
+                }
+            });
+
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (Array.from(inputs).some(input => input.value.trim() !== '')) {
+                        errorMessage.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
 @stop

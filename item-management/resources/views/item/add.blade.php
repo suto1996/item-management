@@ -24,8 +24,8 @@
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="name">名前</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="名前">
+                            <label for="name">商品名</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="商品名">
                         </div>
 
                         <div class="form-group">
@@ -34,8 +34,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="detail">詳細</label>
-                            <input type="text" class="form-control" id="detail" name="detail" placeholder="詳細説明">
+                            <label for="price">価格</label>
+                            <input type="text" class="form-control" id="price" name="price" placeholder="価格">
                         </div>
                     </div>
 
