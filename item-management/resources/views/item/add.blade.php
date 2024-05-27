@@ -30,9 +30,17 @@
 
                         <div class="form-group">
                             <label for="type">種別</label>
-                            <input type="text" class="form-control" id="type" name="type" placeholder="種別">
+                            <select class="form-control" id="type" name="type">
+                                <option value="">種別を選択してください</option>
+                                <option value="トップス">トップス</option>
+                                <option value="アウター">アウター</option>
+                                <option value="パンツ">パンツ</option>
+                                <option value="グッズ">グッズ</option>
+                                <!-- 必要に応じて他の種別を追加 -->
+                            </select>
                         </div>
 
+                       
                         <div class="form-group">
                             <label for="price">価格</label>
                             <input type="text" class="form-control" id="price" name="price" placeholder="価格">

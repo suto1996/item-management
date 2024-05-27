@@ -32,8 +32,9 @@ class ItemController extends Controller
 
         // 種別での検索
         if ($request->has('type') && $request->input('type') != '') {
-            $items->where('type', 'like', '%' . $request->input('type') . '%');
+            $items->where('type', $request->input('type'));
         }
+
 
         // 価格での検索
         if ($request->has('min_price') && $request->input('min_price') != '') {
@@ -96,5 +97,37 @@ class ItemController extends Controller
         $item->delete();
 
         return redirect('/items');
+    }
+
+    /**
+     * 商品更新フォームの表示
+     */
+    public function edit($id)
+    {
+        $item = Item::findOrFail($id);
+
+        return view('item.edit', compact('item'));
+    }
+
+    /**
+     * 商品更新
+     */
+    public function update(Request $request, $id)
+    {
+        // バリデーション
+        $this->validate($request, [
+            'name' => 'required|max:100',
+            'type' => 'required|max:100',
+            'price' => 'required|numeric', // 価格は数値であることを確認
+        ]);
+
+        // 商品更新
+        $item = Item::findOrFail($id);
+        $item->name = $request->name;
+        $item->type = $request->type;
+        $item->price = $request->price;
+        $item->save();
+
+        return redirect('/items')->with('success', '商品が更新されました。');
     }
 }

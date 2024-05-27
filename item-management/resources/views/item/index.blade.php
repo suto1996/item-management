@@ -12,10 +12,18 @@
             <form id="searchForm" action="{{ route('items.index') }}" method="GET">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="商品名を入力してください" name="name" id="name" value="{{ request('name') }}">
+                                </div>
+                                <div class="input-group mb-3">
+                    <select class="form-control" name="type" id="type">
+                        <option value="">種別を選択してください</option>
+                        <option value="トップス">トップス</option>
+                        <option value="アウター">アウター</option>
+                        <option value="パンツ">パンツ</option>
+                        <option value="グッズ">グッズ</option>
+                        <!-- 他の種別のオプションを追加 -->
+                    </select>
                 </div>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="種別を入力してください" name="type" id="type" value="{{ request('type') }}">
-                </div>
+
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <input type="number" class="form-control" placeholder="最低価格" name="min_price" min="0" id="min_price" value="{{ request('min_price') }}">
@@ -24,7 +32,7 @@
                         <input type="number" class="form-control" placeholder="最高価格" name="max_price" min="0" id="max_price" value="{{ request('max_price') }}">
                     </div>
                 </div>
-                <div class="input-group mb-3">
+               
                     <button class="btn btn-outline-secondary" type="submit">検索</button>
                 </div>
                 <div id="error-message" class="text-danger" style="display:none;">
@@ -52,10 +60,9 @@
                             <tr>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->type }}</td>
-                                <td>{{ $item->detail }}</td>
                                 <td>{{ $item->price }}</td>
                                 <td class="text-right">
-                                    <a href="{{ route('items.show', $item->id) }}" class="btn btn-outline-info btn-sm">詳細</a>
+                                    <a href="{{ route('items.show', $item->id) }}" class="btn btn-outline-info btn-sm">編集</a>
                                     <form action="{{ route('items.destroy', $item->id) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
