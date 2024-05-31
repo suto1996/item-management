@@ -62,6 +62,7 @@ class ItemController extends Controller
                 'name' => 'required|max:100',
                 'type' => 'required|max:100',  // 追加のバリデーション
                 'price' => 'required',  // 追加のバリデーション
+                'stock' => 'required|integer|min:0', // 在庫数のバリデーションルールを追加
             ]);
 
             // 商品登録
@@ -70,6 +71,7 @@ class ItemController extends Controller
                 'name' => $request->name,
                 'type' => $request->type,
                 'price' => $request->price,
+                'stock' => $request->stock, // 在庫数を保存
             ]);
 
             return redirect('/items');
@@ -119,13 +121,16 @@ class ItemController extends Controller
             'name' => 'required|max:100',
             'type' => 'required|max:100',
             'price' => 'required|numeric', // 価格は数値であることを確認
+            'stock' => 'required|integer|min:0', // 在庫数のバリデーションルールを追加
         ]);
+        
 
         // 商品更新
         $item = Item::findOrFail($id);
         $item->name = $request->name;
         $item->type = $request->type;
         $item->price = $request->price;
+        $item->stock = $request->stock; // 在庫数を更新
         $item->save();
 
         return redirect('/items')->with('success', '商品が更新されました。');

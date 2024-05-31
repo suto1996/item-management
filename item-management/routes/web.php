@@ -31,3 +31,6 @@ Route::prefix('items')->group(function () {
     Route::get('/{id}', [App\Http\Controllers\ItemController::class, 'show'])->name('items.show');
     Route::delete('/{id}', [App\Http\Controllers\ItemController::class, 'destroy'])->name('items.destroy');
 });
+Route::prefix('orders')->group(function () {
+    Route::get('/', [App\Http\Controllers\OrderController::class, 'index'])->name('orders.index');
+});

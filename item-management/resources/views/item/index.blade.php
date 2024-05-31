@@ -50,17 +50,26 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>商品名</th>
                             <th>種別</th>
                             <th>価格</th>
+                            <th>在庫数</th> 
+
+                            
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($items as $item)
                             <tr>
+                                <td>{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->type }}</td>
                                 <td>{{ $item->price }}</td>
+                                <td>{{ $item->stock }}</td> <!-- データに追加 -->
+
+                                
+                                
                                 <td class="text-right">
                                     <a href="{{ route('items.show', $item->id) }}" class="btn btn-outline-info btn-sm">編集</a>
                                     <form action="{{ route('items.destroy', $item->id) }}" method="POST" style="display:inline;">

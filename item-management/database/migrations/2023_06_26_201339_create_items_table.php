@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('type', 100)->nullable();
             $table->string('detail', 500)->nullable();
             $table->unsignedInteger('price');
+            $table->unsignedInteger('stock')->default(0); // 在庫数のカラムを追加
             $table->timestamps();
         });
     }

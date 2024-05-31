@@ -291,8 +291,14 @@ return [
 
     'menu' => [
         [
-            'text' => '商品一覧',
+            'text' => '在庫管理',
             'url'  => 'items',
+            'icon' => 'fas  fa-shopping-basket',
+        ],
+
+        [
+            'text' => '注文履歴',
+            'url'  => 'orders',
             'icon' => 'fas  fa-shopping-cart',
         ],
 
@@ -302,6 +308,7 @@ return [
             'icon' => 'fas  fa-check-square',
         ],
 
+       
        
 
         
