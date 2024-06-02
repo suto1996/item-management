@@ -296,11 +296,6 @@ return [
             'icon' => 'fas  fa-shopping-basket',
         ],
 
-        [
-            'text' => '注文履歴',
-            'url'  => 'orders',
-            'icon' => 'fas  fa-shopping-cart',
-        ],
 
         [
             'text' => '商品登録一覧',

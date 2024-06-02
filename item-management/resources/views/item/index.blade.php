@@ -3,7 +3,7 @@
 @section('title', '商品一覧')
 
 @section('content_header')
-    <h1>商品一覧</h1>
+    <h1>在庫商品一覧</h1>
 @stop
 
 @section('content')
@@ -77,6 +77,7 @@
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('本当に削除しますか？')">削除</button>
                                     </form>
+                                    <a href="{{ route('items.duplicate', $item->id) }}" class="btn btn-outline-warning btn-sm">複製</a> <!-- 複製ボタンを追加 -->
                                 </td>
                             </tr>
                         @endforeach

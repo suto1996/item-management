@@ -135,4 +135,15 @@ class ItemController extends Controller
 
         return redirect('/items')->with('success', '商品が更新されました。');
     }
+
+    public function duplicate($id)
+    {
+        $item = Item::findOrFail($id);
+        
+        // 複製処理
+        $newItem = $item->replicate();
+        $newItem->save();
+
+        return redirect()->route('items.index')->with('success', 'アイテムが複製されました。');
+    }
 }
