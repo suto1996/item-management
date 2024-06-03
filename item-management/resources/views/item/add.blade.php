@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-6 offset-md-2">
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -19,10 +19,11 @@
                 </div>
             @endif
 
-            <div class="card card-primary">
-                <form method="POST">
-                    @csrf
-                    <div class="card-body">
+            <div class="card">
+                
+                <div class="card-body">
+                    <form method="POST">
+                        @csrf
                         <div class="form-group">
                             <label for="name">商品名</label>
                             <input type="text" class="form-control" id="name" name="name" placeholder="商品名">
@@ -40,20 +41,18 @@
                             </select>
                         </div>
 
-                       
                         <div class="form-group">
                             <label for="price">価格</label>
-                            <input type="text" class="form-control" id="price" name="price" placeholder="価格">
+                            <input type="text" class="form-control" id="price" name="price" placeholder="価格" value="{{ old('price') }}">
                         </div>
                         <div class="form-group">
-                             <label for="stock">在庫数</label>
-                             <input type="number" class="form-control" id="stock" name="stock" placeholder="在庫数">
+                            <label for="stock">在庫数</label>
+                            <input type="number" class="form-control" id="stock" name="stock" placeholder="在庫数">
                         </div>
-
                     </div>
 
                     <div class="card-footer">
-                    <button type="submit" class="btn btn-outline-primary">登録</button>
+                        <button type="submit" class="btn btn-outline-primary">登録</button>
                     </div>
                 </form>
             </div>

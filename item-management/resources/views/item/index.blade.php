@@ -3,7 +3,7 @@
 @section('title', '商品一覧')
 
 @section('content_header')
-    <h1>在庫商品一覧</h1>
+    <h1>商品一覧</h1>
 @stop
 
 @section('content')
@@ -68,8 +68,7 @@
                                 <td>{{ $item->price }}</td>
                                 <td>{{ $item->stock }}</td> <!-- データに追加 -->
 
-                                
-                                
+                            
                                 <td class="text-right">
                                     <a href="{{ route('items.show', $item->id) }}" class="btn btn-outline-info btn-sm">編集</a>
                                     <form action="{{ route('items.destroy', $item->id) }}" method="POST" style="display:inline;">

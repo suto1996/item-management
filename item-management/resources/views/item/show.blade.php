@@ -8,24 +8,27 @@
 
 @section('content')
     <div class="row">
-        <div class="col-12">
+        <div class="col-md-7 offset-md-2">
             <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title"></h3>
-                </div>
+               
                 <div class="card-body">
                     <form action="{{ route('items.update', $item->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <div class="form-group">
-                            <label for="name">商品名</label>
+
+                        <div class="mb-3">
+                            <label for="id" class="form-label">ID: {{ $item->id }}</label>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label">商品名</label>
                             <input type="text" name="name" id="name" class="form-control" value="{{ $item->name }}">
                             @error('name')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="type">種別</label>
+                        <div class="mb-3">
+                            <label for="type" class="form-label">種別</label>
                             <select name="type" id="type" class="form-control">
                                 <option value="">種別を選択してください</option>
                                 <option value="トップス" {{ $item->type == 'トップス' ? 'selected' : '' }}>トップス</option>
@@ -38,15 +41,15 @@
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="price">価格</label>
+                        <div class="mb-3">
+                            <label for="price" class="form-label">価格</label>
                             <input type="text" name="price" id="price" class="form-control" value="{{ $item->price }}">
                             @error('price')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="stock">在庫数</label>
+                        <div class="mb-3">
+                            <label for="stock" class="form-label">在庫数</label>
                             <input type="number" name="stock" id="stock" class="form-control" value="{{ $item->stock }}">
                             @error('stock')
                                 <div class="text-danger">{{ $message }}</div>
@@ -62,9 +65,9 @@
 @stop
 
 @section('css')
-    <!-- Optional: Add custom CSS here -->
+    <!-- CSSを追加 -->
 @stop
 
 @section('js')
-    <!-- Optional: Add custom JS here -->
+    <!-- JSを追加 -->
 @stop

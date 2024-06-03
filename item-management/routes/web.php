@@ -27,7 +27,6 @@ Route::prefix('items')->group(function () {
     Route::get('/add', [App\Http\Controllers\ItemController::class, 'add']);
     Route::post('/add', [App\Http\Controllers\ItemController::class, 'add']);
     Route::get('/search', [App\Http\Controllers\ItemController::class, 'search'])->name('items.search');
-    // routes/web.php
     Route::get('/{id}/duplicate', [App\Http\Controllers\ItemController::class, 'duplicate'])->name('items.duplicate');
     Route::put('/items/{id}', [App\Http\Controllers\ItemController::class, 'update'])->name('items.update');
     Route::get('/{id}', [App\Http\Controllers\ItemController::class, 'show'])->name('items.show');

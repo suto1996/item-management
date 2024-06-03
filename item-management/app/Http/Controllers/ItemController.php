@@ -44,6 +44,8 @@ class ItemController extends Controller
             $items->where('price', '<=', $request->input('max_price'));
         }
 
+        
+
         // 検索結果を取得
         $items = $items->get();
 
@@ -61,7 +63,7 @@ class ItemController extends Controller
             $this->validate($request, [
                 'name' => 'required|max:100',
                 'type' => 'required|max:100',  // 追加のバリデーション
-                'price' => 'required',  // 追加のバリデーション
+                'price' => 'required|numeric',  // 追加のバリデーション
                 'stock' => 'required|integer|min:0', // 在庫数のバリデーションルールを追加
             ]);
 
@@ -81,7 +83,7 @@ class ItemController extends Controller
     }
 
     /**
-     * 商品詳細
+     * 商品編集
      */
     public function show($id)
     {
@@ -146,4 +148,6 @@ class ItemController extends Controller
 
         return redirect()->route('items.index')->with('success', 'アイテムが複製されました。');
     }
+    
+    
 }

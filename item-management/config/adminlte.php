@@ -291,7 +291,7 @@ return [
 
     'menu' => [
         [
-            'text' => '在庫管理',
+            'text' => '商品管理',
             'url'  => 'items',
             'icon' => 'fas  fa-shopping-basket',
         ],
