@@ -47,6 +47,7 @@
             @if($items->isEmpty())
                 <p>該当する商品が見つかりませんでした。</p>
             @else
+            
                 <table class="table table-bordered">
                     <thead>
                         <tr>
