@@ -36,15 +36,15 @@ class ItemController extends Controller
         }
 
 
-        // 価格での検索
+         // 価格での検索
         if ($request->has('min_price') && $request->input('min_price') != '') {
-            $items->where('price', '>=', $request->input('min_price'));
+            $minPrice = $request->input('min_price') > 1000000 ? 1000000 : $request->input('min_price');
+            $items->where('price', '>=', $minPrice);
         }
         if ($request->has('max_price') && $request->input('max_price') != '') {
-            $items->where('price', '<=', $request->input('max_price'));
+            $maxPrice = $request->input('max_price') > 1000000 ? 1000000 : $request->input('max_price');
+            $items->where('price', '<=', $maxPrice);
         }
-
-        
 
         // 検索結果を取得
         $items = $items->get();
@@ -63,10 +63,19 @@ class ItemController extends Controller
             $this->validate($request, [
                 'name' => 'required|max:100',
                 'type' => 'required|max:100',  // 追加のバリデーション
-                'price' => 'required|numeric',  // 追加のバリデーション
-                'stock' => 'required|integer|min:0', // 在庫数のバリデーションルールを追加
+                'price' => 'required|integer|min:1|max:1000000',  // 正数のみを許可し、上限を1,000,000に設定
+                'stock' => 'required|integer|min:0|max:100', // 在庫数のバリデーションルールを追加
+            ],[
+                'price.required' => '価格は必須です。',
+                'price.integer' => '価格は正の整数でなければなりません。',
+                'price.min' => '価格は1以上でなければなりません。',
+                'price.max' => '価格は1,000,000以下でなければなりません。',
+                'stock.required' => '在庫数は必須です。',
+                'stock.integer' => '在庫数は整数でなければなりません。',
+                'stock.min' => '在庫数は0以上でなければなりません。',
+                'stock.max' => '在庫数は100以下でなければなりません。',
+                
             ]);
-
             // 商品登録
             Item::create([
                 'user_id' => Auth::user()->id,
@@ -122,10 +131,18 @@ class ItemController extends Controller
         $this->validate($request, [
             'name' => 'required|max:100',
             'type' => 'required|max:100',
-            'price' => 'required|numeric', // 価格は数値であることを確認
-            'stock' => 'required|integer|min:0', // 在庫数のバリデーションルールを追加
+            'price' => 'required|integer|min:1|max:1000000', // 正数のみを許可し、上限を1,000,000に設定
+            'stock' => 'required|integer|min:0|max:100', // 在庫数のバリデーションルールを追加
+        ],[
+            'price.required' => '価格は必須です。',
+            'price.integer' => '価格は正の整数でなければなりません。',
+            'price.min' => '価格は1以上でなければなりません。',
+            'price.max' => '価格は1,000,000以下でなければなりません。',
+            'stock.required' => '在庫数は必須です。',
+            'stock.integer' => '在庫数は整数でなければなりません。',
+            'stock.min' => '在庫数は0以上でなければなりません。',
+            'stock.max' => '在庫数は100以下でなければなりません。',
         ]);
-        
 
         // 商品更新
         $item = Item::findOrFail($id);
