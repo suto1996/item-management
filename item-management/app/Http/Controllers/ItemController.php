@@ -66,6 +66,10 @@ class ItemController extends Controller
                 'price' => 'required|integer|min:1|max:1000000',  // 正数のみを許可し、上限を1,000,000に設定
                 'stock' => 'required|integer|min:0|max:100', // 在庫数のバリデーションルールを追加
             ],[
+                'name.required' => '商品名は必須です。',
+                'name.max' => '商品名は100文字以内でなければなりません。',
+                'type.required' => '種別は必須です。',
+                'type.max' => '種別は100文字以内でなければなりません。',
                 'price.required' => '価格は必須です。',
                 'price.integer' => '価格は正の整数でなければなりません。',
                 'price.min' => '価格は1以上でなければなりません。',
@@ -134,6 +138,10 @@ class ItemController extends Controller
             'price' => 'required|integer|min:1|max:1000000', // 正数のみを許可し、上限を1,000,000に設定
             'stock' => 'required|integer|min:0|max:100', // 在庫数のバリデーションルールを追加
         ],[
+            'name.required' => '商品名は必須です。',
+            'name.max' => '商品名は100文字以内でなければなりません。',
+            'type.required' => '種別は必須です。',
+            'type.max' => '種別は100文字以内でなければなりません。',
             'price.required' => '価格は必須です。',
             'price.integer' => '価格は正の整数でなければなりません。',
             'price.min' => '価格は1以上でなければなりません。',
